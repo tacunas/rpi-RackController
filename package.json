@@ -1,0 +1,29 @@
+{
+  "name": "rpi-rackcontroller",
+  "version": "1.0.0",
+  "description": "**Raspberry Pi 5**를 메인 컨트롤러로 활용하여 홈 서버랙 내부의 다중 노드(총 6대) 상태를 실시간 수집하고, 1-Wire DS18B20 온도 센서 및 4채널 PWM 팬을 자동/수동으로 제어하는 스마트 컨트롤러 시스템입니다.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "start": "node server/server.js",
+    "agent": "node agent/agent.js",
+    "test": "node tests/test_node_server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tacunas/rpi-RackController.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tacunas/rpi-RackController/issues"
+  },
+  "homepage": "https://github.com/tacunas/rpi-RackController#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
+}

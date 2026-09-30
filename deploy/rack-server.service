@@ -1,0 +1,17 @@
+[Unit]
+Description=Raspberry Pi 5 Server Rack Controller (Node.js & Express)
+After=network.target
+
+[Service]
+Type=simple
+User=jackson
+WorkingDirectory=/home/jackson/Github/rpi-RackController
+Environment="NODE_ENV=production"
+Environment="PORT=8000"
+Environment="RACK_CONFIG=/home/jackson/Github/rpi-RackController/config.json"
+ExecStart=/usr/bin/node /home/jackson/Github/rpi-RackController/server/server.js
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

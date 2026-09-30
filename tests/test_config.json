@@ -1,0 +1,175 @@
+{
+  "server": {
+    "host": "0.0.0.0",
+    "port": 8000,
+    "node_timeout_seconds": 10
+  },
+  "hardware": {
+    "pwm_frequency_hz": 100,
+    "w1_gpio_pin": 4,
+    "channels": {
+      "1": {
+        "name": "하단 흡기팬 (120mm)",
+        "gpio": 12,
+        "pin_type": "3-Pin",
+        "default_duty": 50,
+        "min_duty": 35
+      },
+      "2": {
+        "name": "라즈베리파이 팬 (80mm)",
+        "gpio": 13,
+        "pin_type": "3-Pin",
+        "default_duty": 50,
+        "min_duty": 35
+      },
+      "3": {
+        "name": "오렌지파이 팬 (80mm)",
+        "gpio": 18,
+        "pin_type": "3-Pin",
+        "default_duty": 50,
+        "min_duty": 35
+      },
+      "4": {
+        "name": "상단 배기팬 (120mm)",
+        "gpio": 19,
+        "pin_type": "3-Pin",
+        "default_duty": 50,
+        "min_duty": 35
+      }
+    }
+  },
+  "fan_control": {
+    "auto_mode": true,
+    "occupancy_mode": "home",
+    "home_max_duty": 45,
+    "away_max_duty": 90,
+    "rack_temp_min": 31,
+    "rack_temp_max": 51,
+    "node_temp_min": 46,
+    "node_temp_max": 81,
+    "min_fan_duty": 32,
+    "max_fan_duty": 98,
+    "manual_duties": {
+      "1": 45,
+      "2": 60,
+      "3": 75,
+      "4": 90
+    },
+    "rules": [
+      {
+        "id": "rule_1",
+        "sensor_id": "max_rack",
+        "condition": "gte",
+        "threshold_temp": 45,
+        "fan_channel": 1,
+        "duty": 85,
+        "enabled": true
+      },
+      {
+        "id": "rule_2",
+        "sensor_id": "max_node",
+        "condition": "gte",
+        "threshold_temp": 60,
+        "fan_channel": 2,
+        "duty": 95,
+        "enabled": true
+      }
+    ]
+  },
+  "sensor_aliases": {
+    "28-000001": "서버랙 배기 팬 덕트",
+    "28-000003": "12VDC SMPS",
+    "28-000004": "파이팬 흡기",
+    "28-000005": "x86 Proxmox 배기",
+    "28-000006": "5VDC SMPS",
+    "28-000007": "x86 Windows 배기"
+  },
+  "pdu": {
+    "enabled": true,
+    "i2c_bus": 1,
+    "sampling_interval_ms": 2000,
+    "voltage_limits": {
+      "rail_5v": {
+        "min": 4.75,
+        "nominal": 5.1,
+        "warn": 4.85,
+        "max": 5.3
+      },
+      "rail_12v": {
+        "min": 11.2,
+        "nominal": 12.15,
+        "warn": 11.4,
+        "max": 12.8
+      }
+    },
+    "channels": {
+      "5V_rpi5": {
+        "name": "라즈베리파이 5 (메인)",
+        "rail": "5V",
+        "nominal_v": 5.1,
+        "base_a": 1.45,
+        "i2c_addr": "0x40"
+      },
+      "5V_opi1": {
+        "name": "오렌지파이 #1",
+        "rail": "5V",
+        "nominal_v": 5.08,
+        "base_a": 0.85,
+        "i2c_addr": "0x41"
+      },
+      "5V_opi2": {
+        "name": "오렌지파이 #2",
+        "rail": "5V",
+        "nominal_v": 5.08,
+        "base_a": 0.78,
+        "i2c_addr": "0x42"
+      },
+      "12V_fans": {
+        "name": "4채널 팬 모듈",
+        "rail": "12V",
+        "nominal_v": 12.15,
+        "base_a": 0.35,
+        "i2c_addr": "0x43"
+      },
+      "12V_monitor": {
+        "name": "랙 모니터",
+        "rail": "12V",
+        "nominal_v": 12.15,
+        "base_a": 1.16,
+        "i2c_addr": "0x44"
+      }
+    }
+  },
+  "display_order": {
+    "sensors": [
+      "28-000003",
+      "28-000001",
+      "28-000002"
+    ],
+    "fans": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "pdu_channels": [
+      "5V_rpi5",
+      "5V_opi1",
+      "5V_opi2",
+      "12V_fans",
+      "12V_monitor"
+    ],
+    "nodes": [
+      "rpi5-main",
+      "opi8g",
+      "opi16g",
+      "proxmox-ve",
+      "DX-121",
+      "pve-node-01",
+      "orangepi-5-plus",
+      "orangepi-zero3",
+      "rpi4-node-01",
+      "rpi5-controller"
+    ]
+  }
+}

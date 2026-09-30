@@ -1,0 +1,15 @@
+[Unit]
+Description=Rack Controller Cluster Node Monitoring Agent (Node.js)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/rack-agent
+Environment="NODE_ENV=production"
+ExecStart=/usr/bin/node /opt/rack-agent/agent.js
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
